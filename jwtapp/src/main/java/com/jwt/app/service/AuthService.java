@@ -1,5 +1,36 @@
 package com.jwt.app.service;
 
+import org.springframework.stereotype.Service;
+
+import com.jwt.app.controller.LoginRequest;
+import com.jwt.app.controller.RegisterRequest;
+import com.jwt.app.controller.TokenResponse;
+import com.jwt.app.repository.TokenRepository;
+import com.jwt.app.usuario.User;
+
+import com.jwt.app.repository.Token;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class AuthService {
-    
+    private final TokenRepository tokenRepository;
+
+    public TokenResponse register(RegisterRequest request){
+
+    }
+
+    public TokenResponse login(LoginRequest request){
+        return null;
+    }
+
+    private void saveUserToken(User user, String jwtToken){
+        var token = Token.builder()
+                    .user(user)
+                    .token(jwtToken)
+                    .tokenType(Token.TokenType.BEARER)
+                    .expired(false)
+                    .revoked(false)
+                    .build();
+    }
 }
