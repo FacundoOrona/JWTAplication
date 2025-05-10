@@ -1,7 +1,8 @@
 package com.jwt.app.repository;
 
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Id; 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.jwt.app.usuario.User;
 
 @Data
 @Builder
