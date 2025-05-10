@@ -1,5 +1,6 @@
 package com.jwt.app.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jwt.app.controller.LoginRequest;
@@ -15,8 +16,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
     private final TokenRepository tokenRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public TokenResponse register(RegisterRequest request){
+        var user = User.builder()
+            .name(request.name())
+            .email(request.email())
+            .password(passwordEncoder.encode(request.password()))
+            .build();
 
     }
 
