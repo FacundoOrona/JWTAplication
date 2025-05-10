@@ -8,15 +8,17 @@ import com.jwt.app.controller.RegisterRequest;
 import com.jwt.app.controller.TokenResponse;
 import com.jwt.app.repository.TokenRepository;
 import com.jwt.app.usuario.User;
-
+import com.jwt.app.usuario.UserRepository;
 import com.jwt.app.repository.Token;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+    private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public TokenResponse register(RegisterRequest request){
         var user = User.builder()
@@ -24,7 +26,11 @@ public class AuthService {
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
             .build();
-
+        var savedUser = userRepository.save(user);
+        var jwtToken = jwtService.generateToken(savedUser);
+        var refreshToken = jwtService.generateRefreshToken(savedUser);
+        saveUserToken(savedUser, jwtToken);
+        return new TokenResponse(jwtToken, refreshToken);
     }
 
     public TokenResponse login(LoginRequest request){
@@ -39,5 +45,6 @@ public class AuthService {
                     .expired(false)
                     .revoked(false)
                     .build();
+        tokenRepository.save(token);
     }
 }
