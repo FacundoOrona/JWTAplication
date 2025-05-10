@@ -1,5 +1,8 @@
 package com.jwt.app.controller;
 
-public class LoginRequest {
+public record LoginRequest(
+    String email,
+    String password
+) {
     
 }
