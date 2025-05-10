@@ -27,8 +27,8 @@ public class AuthService {
             .password(passwordEncoder.encode(request.password()))
             .build();
         var savedUser = userRepository.save(user);
-        var jwtToken = jwtService.generateToken(savedUser);
-        var refreshToken = jwtService.generateRefreshToken(savedUser);
+        var jwtToken = jwtService.generatedToken(savedUser);
+        var refreshToken = jwtService.generatedRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
         return new TokenResponse(jwtToken, refreshToken);
     }
@@ -46,5 +46,9 @@ public class AuthService {
                     .revoked(false)
                     .build();
         tokenRepository.save(token);
+    }
+
+    public void refreshToken(){
+        
     }
 }
