@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationManager;
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +49,10 @@ public class AuthService {
         var user = userRepository.findByEmail(request.email())
                 .orElseThrow();
         var jwtToken = jwtService.generatedToken(user);
+        var refreshToken = jwtService.generatedRefreshToken(user);
         revokeAllUserTokens(user);   
+        saveUserToken(user, jwtToken);
+        return new TokenResponse(jwtToken, refreshToken);
     }
 
     private void saveUserToken(User user, String jwtToken){
@@ -75,7 +78,16 @@ public class AuthService {
         }
     }
 
-    public void refreshToken(){
+    public TokenResponse refreshToken(final String authHeader){
+        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Invalid Bearer Token / Bearer token invalido")
+        }
+
+        final String refreshToken = authHeader.substring(7);
+        final String userEmail = jwtService.extractUsername(refreshToken);
         
+        if (userEmail == null) {
+            throw new IllegalArgumentException("Invalid Refresh Token / Refresh Token Invalido");
+        }
     }
 }
