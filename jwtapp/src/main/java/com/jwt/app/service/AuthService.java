@@ -11,6 +11,9 @@ import com.jwt.app.usuario.User;
 import com.jwt.app.usuario.UserRepository;
 import com.jwt.app.repository.Token;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 
 
@@ -37,7 +40,16 @@ public class AuthService {
     }
 
     public TokenResponse login(LoginRequest request){
-        return null;
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                request.email(),
+                request.password()
+            )
+        );
+        var user = userRepository.findByEmail(request.email())
+                .orElseThrow();
+        var jwtToken = jwtService.generatedToken(user);
+        revokeAllUserTokens(user);   
     }
 
     private void saveUserToken(User user, String jwtToken){
@@ -49,6 +61,18 @@ public class AuthService {
                     .revoked(false)
                     .build();
         tokenRepository.save(token);
+    }
+
+    private void revokeAllUserTokens(final User user) {
+        final List<Token> validUserTokens = tokenRepository
+                .findAllByUserIdAndExpiredFalseAndRevokedFalse(user.getId());
+        if (!validUserTokens.isEmpty()){
+            for (final Token token : validUserTokens) {
+                token.setExpired(true);
+                token.setRevoked(true);
+            }
+            tokenRepository.saveAll(validUserTokens);
+        }
     }
 
     public void refreshToken(){
