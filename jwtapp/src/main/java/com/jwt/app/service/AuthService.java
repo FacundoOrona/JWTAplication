@@ -11,6 +11,8 @@ import com.jwt.app.usuario.User;
 import com.jwt.app.usuario.UserRepository;
 import com.jwt.app.repository.Token;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class AuthService {
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     public TokenResponse register(RegisterRequest request){
         var user = User.builder()
