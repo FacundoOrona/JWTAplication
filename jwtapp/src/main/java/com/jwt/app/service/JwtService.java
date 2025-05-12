@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.jwt.app.usuario.User;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -23,6 +24,16 @@ public class JwtService {
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
 
+    public String extractUsername(final String token) {
+        final Claims jwtToken = Jwts.parserBuilder()
+                .setSigningKey(getSignInKey()) // método que devuelve tu SecretKey
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return jwtToken.getSubject();
+    }
+
     public String generatedToken(final User user) {
         return buildToken(user, jwtExpiration);
     }
@@ -35,18 +46,19 @@ public class JwtService {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
 
-    return Jwts.builder()
-        .setId(user.getId().toString())                    // jti
-        .claim("name", user.getName())                // claim personalizado
-        .setSubject(user.getEmail())                       // sub
-        .setIssuedAt(now)                                  // iat
-        .setExpiration(expiryDate)                         // exp
-        .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-        .compact();
+        return Jwts.builder()
+                .setId(user.getId().toString()) // jti
+                .claim("name", user.getName()) // claim personalizado
+                .setSubject(user.getEmail()) // sub
+                .setIssuedAt(now) // iat
+                .setExpiration(expiryDate) // exp
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }
