@@ -2,7 +2,6 @@ package com.jwt.app.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.jwt.app.controller.*;
 import com.jwt.app.service.*;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +26,8 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    /*  @PostMapping("/refresh")
+    @PostMapping("/refresh")
     public TokenResponse refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) final String authHeader){
         return service.refreshToken(authHeader);
-    } */
+    } 
 }

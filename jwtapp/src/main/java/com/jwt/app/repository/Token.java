@@ -1,6 +1,6 @@
 package com.jwt.app.repository;
 
-import jakarta.persistence.Id; 
+import jakarta.persistence.Id;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
@@ -34,12 +34,13 @@ public class Token {
     public String token;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     public TokenType tokenType = TokenType.BEARER;
 
     public boolean revoked;
 
     public boolean expired;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;

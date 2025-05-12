@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -80,7 +81,7 @@ public class AuthService {
 
     public TokenResponse refreshToken(final String authHeader){
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new IllegalArgumentException("Invalid Bearer Token / Bearer token invalido")
+            throw new IllegalArgumentException("Invalid Bearer Token / Bearer token invalido");
         }
 
         final String refreshToken = authHeader.substring(7);
@@ -89,5 +90,17 @@ public class AuthService {
         if (userEmail == null) {
             throw new IllegalArgumentException("Invalid Refresh Token / Refresh Token Invalido");
         }
+
+        final User user = userRepository.findByEmail(userEmail)
+                            .orElseThrow(() -> new UsernameNotFoundException(userEmail));
+
+        if(!jwtService.isTokenValid(refreshToken, user)) {
+            throw new IllegalArgumentException("Invalid Refresh token");
+        }
+
+        final String accesToken = jwtService.generatedToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, accesToken);
+        return new TokenResponse(accesToken, refreshToken);
     }
 }
