@@ -34,6 +34,25 @@ public class JwtService {
         return jwtToken.getSubject();
     }
 
+    public boolean isTokenValid(final String token, final User user) {
+        final String username = extractUsername(token);
+        return (username.equals(user.getEmail())) && !isTokenExpired(token);
+    }
+
+    private boolean isTokenExpired(final String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(final String token) {
+        final Claims jwsToken = Jwts.parserBuilder()
+                .setSigningKey(getSignInKey()) // usa tu clave secreta aquí
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return jwsToken.getExpiration();
+    }
+
     public String generatedToken(final User user) {
         return buildToken(user, jwtExpiration);
     }
