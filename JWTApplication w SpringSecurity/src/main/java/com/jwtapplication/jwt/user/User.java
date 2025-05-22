@@ -1,6 +1,5 @@
-package com.programandoenjava.jwt.user;
+package com.jwtapplication.jwt.user;
 
-import com.programandoenjava.jwt.auth.repository.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+import com.jwtapplication.jwt.auth.repository.Token;
 
 @Data
 @Builder

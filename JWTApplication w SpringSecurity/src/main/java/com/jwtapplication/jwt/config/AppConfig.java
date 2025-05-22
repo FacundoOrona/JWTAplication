@@ -1,8 +1,6 @@
-package com.programandoenjava.jwt.config;
+package com.jwtapplication.jwt.config;
 
 
-import com.programandoenjava.jwt.user.User;
-import com.programandoenjava.jwt.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.jwtapplication.jwt.user.User;
+import com.jwtapplication.jwt.user.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor

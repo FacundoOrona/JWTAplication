@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt;
+package com.jwtapplication.jwt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

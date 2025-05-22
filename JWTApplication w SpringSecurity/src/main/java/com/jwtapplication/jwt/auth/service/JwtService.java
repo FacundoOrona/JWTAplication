@@ -1,11 +1,12 @@
-package com.programandoenjava.jwt.auth.service;
+package com.jwtapplication.jwt.auth.service;
 
-import com.programandoenjava.jwt.user.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.jwtapplication.jwt.user.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;

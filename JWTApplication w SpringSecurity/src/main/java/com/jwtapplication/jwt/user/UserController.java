@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt.user;
+package com.jwtapplication.jwt.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

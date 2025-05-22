@@ -1,18 +1,19 @@
-package com.programandoenjava.jwt.auth.service;
+package com.jwtapplication.jwt.auth.service;
 
-import com.programandoenjava.jwt.auth.controller.AuthRequest;
-import com.programandoenjava.jwt.auth.controller.RegisterRequest;
-import com.programandoenjava.jwt.auth.controller.TokenResponse;
-import com.programandoenjava.jwt.auth.repository.Token;
-import com.programandoenjava.jwt.auth.repository.TokenRepository;
-import com.programandoenjava.jwt.user.User;
-import com.programandoenjava.jwt.user.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.jwtapplication.jwt.auth.controller.AuthRequest;
+import com.jwtapplication.jwt.auth.controller.RegisterRequest;
+import com.jwtapplication.jwt.auth.controller.TokenResponse;
+import com.jwtapplication.jwt.auth.repository.Token;
+import com.jwtapplication.jwt.auth.repository.TokenRepository;
+import com.jwtapplication.jwt.user.User;
+import com.jwtapplication.jwt.user.UserRepository;
 
 import java.util.List;
 

@@ -1,10 +1,11 @@
-package com.programandoenjava.jwt.auth.controller;
+package com.jwtapplication.jwt.auth.controller;
 
-import com.programandoenjava.jwt.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.jwtapplication.jwt.auth.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")

@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt.auth.repository;
+package com.jwtapplication.jwt.auth.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

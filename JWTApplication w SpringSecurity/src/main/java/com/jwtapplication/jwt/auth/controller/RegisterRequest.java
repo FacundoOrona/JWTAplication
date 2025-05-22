@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt.auth.controller;
+package com.jwtapplication.jwt.auth.controller;
 
 public record RegisterRequest(
         String name,

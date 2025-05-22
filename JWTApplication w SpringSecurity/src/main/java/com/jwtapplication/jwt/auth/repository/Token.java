@@ -1,6 +1,7 @@
-package com.programandoenjava.jwt.auth.repository;
+package com.jwtapplication.jwt.auth.repository;
 
-import com.programandoenjava.jwt.user.User;
+import com.jwtapplication.jwt.user.User;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

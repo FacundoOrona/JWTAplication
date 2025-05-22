@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt.auth.controller;
+package com.jwtapplication.jwt.auth.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

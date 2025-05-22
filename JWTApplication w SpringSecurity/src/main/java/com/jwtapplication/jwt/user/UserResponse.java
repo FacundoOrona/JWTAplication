@@ -1,4 +1,4 @@
-package com.programandoenjava.jwt.user;
+package com.jwtapplication.jwt.user;
 
 public record UserResponse(
         String name,
