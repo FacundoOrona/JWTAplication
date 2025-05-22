@@ -8,7 +8,7 @@
         <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.programandoenjava</groupId>
+    <groupId>com.jwtapplication</groupId>
     <artifactId>jwt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>jwt</name>
